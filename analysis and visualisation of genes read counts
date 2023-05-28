@@ -1,0 +1,895 @@
+#download  reads counts mapped to MG1655 genome DNA
+
+
+import pandas as pd
+
+genes_len = pd.read_csv('mg_genes_len', sep=' ', header = None)
+
+genes_len['gene_len']= abs(genes_len[0]-genes_len[1])
+
+genes_len.columns = ['start', 'stop', 'name', 'gene_len']
+
+genes_len['name'] = genes_len.name.str.replace(';', '')
+genes_len = genes_len.drop_duplicates().groupby('name').gene_len.max().reset_index()
+
+
+lib1 = pd.read_csv('Esyun_1_all.bam.sortedall.txt', sep ='\t', header = None)
+lib1.columns = ['name', 'gene', 'reads' ]
+lib1['rep'] = 'rep1'
+lib1_sum = sum(lib1['reads'])
+
+lib2 = pd.read_csv('Esyun_2_all.bam.sortedall.txt', sep ='\t', header = None)
+lib2.columns = ['name', 'gene', 'reads' ]
+lib2['rep'] = 'rep2'
+lib2_sum = sum(lib2['reads'])
+
+lib3 = pd.read_csv('Esyun_3_all.bam.sortedall.txt', sep ='\t', header = None)
+lib3.columns = ['name', 'gene', 'reads' ]
+lib3['rep'] = 'rep3'
+lib3_sum = sum(lib3['reads'])
+
+lib4 = pd.read_csv('Esyun_4_all.bam.sortedall.txt', sep ='\t', header = None)
+lib4.columns = ['name', 'gene', 'reads' ]
+lib4['rep'] = 'rep4'
+lib4_sum = sum(lib4['reads'])
+
+lib5 = pd.read_csv('Esyun_5_all.bam.sortedall.txt', sep ='\t', header = None)
+lib5.columns = ['name', 'gene', 'reads' ]
+lib5['rep'] = 'rep5'
+lib5_sum = sum(lib5['reads'])
+
+lib6 = pd.read_csv('Esyunina6_reversed_mg.bam.sorted_mg.txt', sep ='\t', header = None)
+lib6.columns = ['name', 'gene', 'reads' ]
+lib6['rep'] = 'rep6'
+lib6_sum = sum(lib6['reads'])
+
+lib7 = pd.read_csv('Esyunina7_reversed_mg.bam.sorted_mg.txt', sep ='\t', header = None)
+lib7.columns = ['name', 'gene', 'reads' ]
+lib7['rep'] = 'rep7'
+lib7_sum = sum(lib7['reads'])
+
+lib8 = pd.read_csv('Esyunina8_reversed_mg.bam.sorted_mg.txt', sep ='\t', header = None)
+lib8.columns = ['name', 'gene', 'reads' ]
+lib8['rep'] = 'rep8'
+lib8_sum = sum(lib8['reads'])
+
+lib9 = pd.read_csv('Esyunina9_reversed_mg.bam.sorted_mg.txt', sep ='\t', header = None)
+lib9.columns = ['name', 'gene', 'reads' ]
+lib9['rep'] = 'rep9'
+lib9_sum = sum(lib9['reads'])
+
+lib10 = pd.read_csv('Esyunina10_reversed_mg.bam.sorted_mg.txt', sep ='\t', header = None)
+lib10.columns = ['name', 'gene', 'reads' ]
+lib10['rep'] = 'rep10'
+lib10_sum = sum(lib10['reads'])
+
+#### reads counts mapped to the phage genome
+
+lib44 = pd.read_csv('Esyun_4_all.bam.sortedall_phage.txt', sep ='\t', header = None)
+lib44.columns = ['name', 'gene', 'reads' ]
+lib44['rep'] = 'rep4'
+lib44_sum = lib44['reads']
+
+lib55 = pd.read_csv('Esyun_5_all.bam.sortedall_phage.txt', sep ='\t', header = None)
+lib55.columns = ['name', 'gene', 'reads' ]
+lib55['rep'] = 'rep5'
+lib55_sum = lib55['reads']
+
+lib99 = pd.read_csv('Esyunina9_reversed_phage.bam.sorted_phage.txt', sep ='\t', header = None)
+lib99.columns = ['name', 'gene', 'reads' ]
+lib99['rep'] = 'rep9'
+lib99_sum = lib99['reads']
+
+lib1010 = pd.read_csv('Esyunina10_reversed_phage.bam.sorted_phage.txt', sep ='\t', header = None)
+lib1010.columns = ['name', 'gene', 'reads' ]
+lib1010['rep'] = 'rep10'
+lib1010_sum = lib1010['reads']
+
+####download  reads counts mapped to pBAD-DREN-APAZ-NbaAgo plasmid
+
+pbad_genes_len = pd.read_csv('pbad_gen_len', sep=' ', header = None)
+
+pbad_genes_len['gene_len']= abs(pbad_genes_len[0]-pbad_genes_len[1])
+
+pbad_genes_len.columns = ['start', 'stop', 'name', 'gene_len']
+pbad_genes_len.dropna()
+
+pbad_genes_len['name'] = pbad_genes_len.name.str.replace(';', '')
+pbad_genes_len = pbad_genes_len.drop_duplicates().groupby('name').gene_len.max().reset_index()
+
+
+lib111 = pd.read_csv('Esyun_1_pbad.bam.sortedall_bpad.txt', sep ='\t', header = None)
+lib111.columns = ['name',  'reads' ]
+lib111['rep'] = 'rep1'
+lib111_sum = sum(lib111['reads'])
+
+lib222 = pd.read_csv('Esyun_2_pbad.bam.sortedall_bpad.txt', sep ='\t', header = None)
+lib222.columns = ['name', 'reads' ]
+lib222['rep'] = 'rep2'
+lib222_sum = sum(lib222['reads'])
+
+lib333 = pd.read_csv('Esyun_3_pbad.bam.sortedall_bpad.txt', sep ='\t', header = None)
+lib333.columns = ['name',  'reads' ]
+lib333['rep'] = 'rep3'
+lib333_sum = sum(lib333['reads'])
+
+lib666 = pd.read_csv('Esyunina6_reversed_pbad.bam.sorted_bpad.txt', sep ='\t', header = None)
+lib666.columns = ['name',  'reads' ]
+lib666['rep'] = 'rep6'
+lib666_sum = sum(lib666['reads'])
+
+lib777 = pd.read_csv('Esyunina7_reversed_pbad.bam.sorted_bpad.txt', sep ='\t', header = None)
+lib777.columns = ['name',  'reads' ]
+lib777['rep'] = 'rep7'
+lib777_sum = sum(lib777['reads'])
+
+lib888 = pd.read_csv('Esyunina8_reversed_pbad.bam.sorted_bpad.txt', sep ='\t', header = None)
+lib888.columns = ['name',  'reads' ]
+lib888['rep'] = 'rep8'
+lib888_sum = sum(lib888['reads'])
+
+#### download reads counts mapped to pacyc plasmid
+pacyc_genes_len = pd.read_csv('pacyc_gen_len', sep=' ', header = None)
+
+pacyc_genes_len['gene_len']= abs(pacyc_genes_len[0]-pacyc_genes_len[1])
+
+pacyc_genes_len.columns = ['start', 'stop', 'name', 'gene_len']
+pacyc_genes_len.dropna()
+
+pacyc_genes_len['name'] = pacyc_genes_len.name.str.replace(';', '')
+pacyc_genes_len = pacyc_genes_len.drop_duplicates().groupby('name').gene_len.max().reset_index()
+pacyc_genes_len
+
+
+lib11 = pd.read_csv('Esyun_1_pacyc.bam.sortedall_pacyc.txt', sep ='\t', header = None)
+lib11.columns = ['name',  'reads' ]
+lib11['rep'] = 'rep1'
+lib11_sum= sum(lib11['reads'])
+
+lib22 = pd.read_csv('Esyun_2_pacyc.bam.sortedall_pacyc.txt', sep ='\t', header = None)
+lib22.columns = ['name', 'reads' ]
+lib22['rep'] = 'rep2'
+lib22_sum= sum(lib22['reads'])
+
+lib33 = pd.read_csv('Esyun_3_pacyc.bam.sortedall_pacyc.txt', sep ='\t', header = None)
+lib33.columns = ['name', 'reads' ]
+lib33_sum = sum(lib33['reads'])
+lib33['rep'] = 'rep3'
+
+lib66 = pd.read_csv('Esyunina6_reversed_pacyc.bam.sorted_pacyc.txt', sep ='\t', header = None)
+lib66.columns = ['name',  'reads' ]
+lib66['rep'] = 'rep1'
+lib66_sum= sum(lib66['reads'])
+
+lib77 = pd.read_csv('Esyunina7_reversed_pacyc.bam.sorted_pacyc.txt', sep ='\t', header = None)
+lib77.columns = ['name',  'reads' ]
+lib77['rep'] = 'rep1'
+lib77_sum= sum(lib77['reads'])
+
+lib88 = pd.read_csv('Esyunina8_reversed_pacyc.bam.sorted_pacyc.txt', sep ='\t', header = None)
+lib88.columns = ['name',  'reads' ]
+lib88['rep'] = 'rep1'
+lib88_sum= sum(lib88['reads'])
+
+# download information about total mapped reads in each library
+read_sum1 = [['rep1',1567791 ], ['rep2',1782608], ['rep3', 2396602], ['rep4',1588553], ['rep5', 2025996]]
+
+
+read_sum2 = [['rep6', 3019913], ['rep7', 4918763], ['rep8', 6594620], ['rep9',7449791 ], ['rep10',4820468 ]]
+
+
+lib_sum1 = pd.DataFrame(read_sum1, columns=['rep_x', 'sum_x'])
+
+lib_sum2 =  pd.DataFrame(read_sum2, columns=['rep_y', 'sum_y'])
+
+lib_sum = lib_sum1.merge(lib_sum2,left_index=True, right_index=True )
+
+## create tables with infromation about mapped short reads, mapped long reads, gene lengths, total number of reads and calculation of RPKM for MG1655 chromosome
+genes_len = pd.read_csv('mg_genes_len', sep=' ', header = None)
+genes_len['gene_len']= abs(genes_len[0]-genes_len[1])
+genes_len.columns = ['start', 'stop', 'name', 'gene_len']
+
+genes_len['name'] = genes_len.name.str.replace(';', '')
+genes_len = genes_len.drop_duplicates().groupby('name').gene_len.max().reset_index()
+#genes_len.query('name == "b2588" ')
+genes_len
+
+
+def prepare(df):
+  df1 = df.query("name not in ('__no_feature', '__ambiguous', '__too_low_aQual', '__not_aligned', '__alignment_not_unique')")\
+          .query("gene_x not in ('rrsH', 'rrlH', 'rrfH', 'rrfG', 'rrlG', 'rrsG', 'rrfF', 'rrfD', 'rrlD', 'rrsD', 'rrsC', 'rrlC', 'rrfC', 'rrsA', 'rrlA', 'rrfA', 'rrsB', 'rrlB', 'rrfB', 'rrsE', 'rrlE','rrfE') ")\
+          .query("reads_y > 0")\
+          .merge(genes_len[['gene_len', 'name']], how = 'left', on = 'name')\
+          .merge(lib_sum, on = 'rep_x', how = 'left')
+  df1['reads_x_norm'] = (df1.reads_x / df1.sum_x) * 1000000 / df1.gene_len
+  df1['reads_y_norm'] = (df1.reads_y / df1.sum_y) * 1000000 / df1.gene_len
+  df1['reads_norm'] = df1.reads_x_norm / df1.reads_y_norm
+  return df1.fillna({"reads_norm":0.0})
+
+lib1 = prepare(lib1.merge(lib6, on = 'name', how = 'left'))
+lib2 = prepare(lib2.merge(lib7, on = 'name', how = 'left'))
+lib3 = prepare(lib3.merge(lib8, on = 'name', how = 'left'))
+lib4 = prepare(lib4.merge(lib9, on = 'name', how = 'left'))
+lib5 = prepare(lib5.merge(lib10, on = 'name', how = 'left'))
+
+## create tables with infromation about mapped short reads, mapped long reads, gene lengths, total number of reads and calculation of RPKM for phage genome
+phage_genes_len = pd.read_csv('phage_gene_len', sep=' ', header = None)
+
+phage_genes_len['gene_len']= abs(phage_genes_len[0]-phage_genes_len[1])
+
+phage_genes_len.columns = ['start', 'stop', 'name', 'gene_len']
+phage_genes_len.dropna()
+
+phage_genes_len['name'] = phage_genes_len.name.str.replace(';', '')
+phage_genes_len = phage_genes_len.drop_duplicates().groupby('name').gene_len.max().reset_index()
+
+
+def prepare(df):
+  df1 = df.query("name not in ('__no_feature', '__ambiguous', '__too_low_aQual', '__not_aligned', '__alignment_not_unique')")\
+          .query("gene_x not in ('rrsH', 'rrlH', 'rrfH', 'rrfG', 'rrlG', 'rrsG', 'rrfF', 'rrfD', 'rrlD', 'rrsD', 'rrsC', 'rrlC', 'rrfC', 'rrsA', 'rrlA', 'rrfA', 'rrsB', 'rrlB', 'rrfB', 'rrsE', 'rrlE','rrfE') ")\
+          .query("reads_y > 0")\
+          .merge(phage_genes_len[['gene_len', 'name']], how = 'left', on = 'name')\
+          .merge(lib_sum, on = 'rep_x', how = 'left')
+  df1 = df1.query("name not in ('ECD_RS12925', 'ECD_RS19025', 'ECD_RS20410', 'ECD_RS20210',  'ECD_RS01050', 'ECD_RS16325', 'ECD_RS19585' )")
+  df1['reads_x_norm'] = (df1.reads_x / df1.sum_x) * 1000000 / df1.gene_len
+  df1['reads_y_norm'] = (df1.reads_y / df1.sum_y) * 1000000 / df1.gene_len
+  df1['reads_norm'] = df1.reads_x_norm / df1.reads_y_norm
+  df1.fillna({"reads_norm":0.0})
+  return df1.fillna({"gene_x": 'unknown'})
+
+
+lib44 = prepare(lib44.merge(lib99, on = 'name', how = 'left'))
+lib55 = prepare(lib55.merge(lib1010, on = 'name', how = 'left'))
+
+#proto_interval.merge(result4, on = ['start', 'end', 'interval_name'], how='left').fillna({"interval_length": 1000, "value": 0})
+
+lib44 = phage_genes_len.merge(lib44, on = ['name', 'gene_len'], how = 'left').fillna({"gene_x": 'unknown' , "reads_x": 0, "reads_y": 0  })
+lib55 = phage_genes_len.merge(lib55, on = ['name', 'gene_len'], how = 'left').fillna({"gene_x": 'unknown' , "reads_x": 0, "reads_y": 0  })
+
+
+## create tables with infromation about mapped short reads, mapped long reads, gene lengths, total number of reads and calculation of RPKM for pBAD-DREN-APAZ-NbaAgo
+def prepare(df):
+  df1 = df.query("name not in ('__no_feature', '__ambiguous', '__too_low_aQual', '__not_aligned', '__alignment_not_unique')")\
+          .query("reads_y > 0")\
+          .merge(pbad_genes_len[['gene_len', 'name']], how = 'left', on = 'name')\
+          .merge(lib_sum, on = 'rep_x', how = 'left')
+  df1 = df1.query("name not in ('ECD_RS12925', 'ECD_RS19025', 'ECD_RS20410', 'ECD_RS20210',  'ECD_RS01050', 'ECD_RS16325', 'ECD_RS19585' )")
+  df1['reads_x_norm'] = (df1.reads_x / df1.sum_x) * 1000000 / df1.gene_len
+  df1['reads_y_norm'] = (df1.reads_y / df1.sum_y) * 1000000 / df1.gene_len
+  df1['reads_norm'] = df1.reads_x_norm / df1.reads_y_norm
+  df1.fillna({"reads_norm":0.0})
+  return df1.fillna({"gene_x": 'unknown'})
+
+
+lib111 = prepare(lib111.merge(lib666, on = 'name', how = 'left'))
+lib222 = prepare(lib222.merge(lib777, on = 'name', how = 'left'))
+lib333 = prepare(lib333.merge(lib888, on = 'name', how = 'left'))
+
+lib111_f = lib111[ lib111['name'].isin(['DUF4365_N_domain', 'SbAgo', 'Amp', 'ori', 'araC_min'])] # filtered table for correlation graph
+lib222_f = lib222[ lib222['name'].isin(['DUF4365_N_domain', 'SbAgo', 'Amp', 'ori', 'araC_min'])] # filtered table for correlation graph
+lib333_f = lib333[ lib111['name'].isin(['DUF4365_N_domain', 'SbAgo', 'Amp', 'ori', 'araC_min'])] # filtered table for correlation graph
+
+## create tables with infromation about mapped short reads, mapped long reads, gene lengths, total number of reads and calculation of RPKM for pACYC
+def prepare(df):
+  df1 = df.query("name not in ('__no_feature', '__ambiguous', '__too_low_aQual', '__not_aligned', '__alignment_not_unique')")\
+          .query("reads_y > 0")\
+          .merge(pacyc_genes_len[['gene_len', 'name']], how = 'left', on = 'name')\
+          .merge(lib_sum, on = 'rep_x', how = 'left')
+  df1 = df1.query("name not in ('ECD_RS12925', 'ECD_RS19025', 'ECD_RS20410', 'ECD_RS20210',  'ECD_RS01050', 'ECD_RS16325', 'ECD_RS19585' )")
+  df1['reads_x_norm'] = (df1.reads_x / df1.sum_x) * 1000000 / df1.gene_len
+  df1['reads_y_norm'] = (df1.reads_y / df1.sum_y) * 1000000 / df1.gene_len
+  df1['reads_norm'] = df1.reads_x_norm / df1.reads_y_norm
+  df1.fillna({"reads_norm":0.0})
+  return df1.fillna({"gene_x": 'unknown'})
+
+
+lib11 = prepare(lib11.merge(lib66, on = 'name', how = 'left'))
+lib22 = prepare(lib22.merge(lib77, on = 'name', how = 'left'))
+lib33 = prepare(lib33.merge(lib88, on = 'name', how = 'left'))
+
+
+lib11_f = lib11[ lib11['name'].isin(['CmR_min', 'TcR', 'p15_ori_min'])]
+lib22_f = lib22[ lib22['name'].isin(['CmR_min', 'TcR', 'p15_ori_min'])]
+lib33_f = lib33[ lib33['name'].isin(['CmR_min', 'TcR', 'p15_ori_min'])]
+
+## create lists of genes of different classes for further analysis
+ribo_names = ['rrsH', 'rrlH', 'rrfH', 'rrfG', 'rrlG', 'rrsG', 'rrfF', 'rrfD', 'rrlD', 'rrsD', 'rrsC', 'rrlC', 'rrfC', 'rrsA', 'rrlA', 'rrfA', 'rrsB', 'rrlB', 'rrfB', 'rrsE', 'rrlE','rrfE']
+
+ncrna_names = ['tff', 'eyeA', 'psrD', 'rttR', 'rydB', 'ryeA', 'sdsR', 'isrC', 'ryfA', 'glmY', 'ryfD', 'csrB', 'ssrS', 'psrO', 'esrE', 'csrC', 'sroH', 'ryjA', 'ryjB']
+
+as_rna_names = ['sokC','sgrS', 'chiX', 'sokE', 'rybB', 'rdlA', 'rdlB', 'rdlC', 'mcaS', 'fnrS', 'micC', 'rydC', 'sokB', 'mgrR', 'dicF', 'rprA', 'dsrA', 'rseX', 'sibA', 'sibB', 'cyaR', 'micF', 'ohsC', 'micA', 'sokX', 'gcvB', 'omrA', 
+                'omrB', 'sibC', 'sibD', 'sibE', 'arcZ', 'ryhB', 'agrA', 'agrB', 'arrS', 'gadY', 'rdlD', 'istR', 'glmZ', 'spf', 'oxyS', 'symR']
+
+as_rna_names2 = lib1[lib1['gene_x'].isin(as_rna_names)].name.to_numpy()
+
+
+trna_raw = """
+ileV
+alaV
+aspU
+aspV
+thrW
+argU
+glnX
+glnV
+metU
+glnW
+glnU
+leuW
+metT
+lysT
+valT
+lysW
+valZ
+lysY
+lysZ
+lysQ
+serW
+serT
+serX
+tyrV
+tyrT
+valV
+valW
+leuZ
+cysT
+glyW
+serU
+asnT
+asnW
+asnU
+asnV
+proL
+argW
+alaX
+alaW
+valU
+valX
+valY
+lysV
+gltW
+ileY
+argQ
+argZ
+argY
+argV
+serV
+metZ
+metW
+metV
+glyU
+pheV
+ileX
+metY
+leuU
+thrV
+alaU
+ileU
+proK
+selC
+gltU
+aspT
+trpT
+argX
+hisR
+leuT
+proM
+ileT
+alaT
+gltT
+thrU
+tyrU
+glyT
+thrT
+gltV
+pheU
+glyV
+glyX
+glyY
+leuX
+leuV
+leuP
+leuQ
+"""
+
+trna_names = trna_raw.split("\n")
+
+trna_names2 = lib1[lib1['gene_x'].isin(trna_names)].name.to_numpy()
+
+
+is_names = pd.read_csv('is_names', sep = '\t', header = None).drop_duplicates()
+is_names.columns = ['name']
+is_names['name'] = is_names.name.str.replace(';', '')
+is_names = is_names['name'].to_numpy()
+
+
+prophage_names = pd.read_csv('prophage_names', sep = '\t', header = None).drop_duplicates()
+prophage_names.columns = ['name']
+prophage_names['name'] = prophage_names.name.str.replace(';', '')
+prophage_names = prophage_names['name'].to_numpy()
+
+## create table with names of genes of different classes for correlation graphs
+lib1_ribo = lib1[lib1['gene_x'].isin(ribo_names)].reset_index()
+lib2_ribo = lib2[lib2['gene_x'].isin(ribo_names)].reset_index()
+lib3_ribo = lib3[lib3['gene_x'].isin(ribo_names)].reset_index()
+lib4_ribo = lib4[lib4['gene_x'].isin(ribo_names)].reset_index()
+lib5_ribo = lib5[lib5['gene_x'].isin(ribo_names)].reset_index()
+
+lib1_trna = lib1[lib1['gene_x'].isin(trna_names)].reset_index()
+lib2_trna = lib2[lib2['gene_x'].isin(trna_names)].reset_index()
+lib3_trna = lib3[lib3['gene_x'].isin(trna_names)].reset_index()
+lib4_trna = lib4[lib4['gene_x'].isin(trna_names)].reset_index()
+lib5_trna = lib5[lib5['gene_x'].isin(trna_names)].reset_index()
+
+lib1_is = lib1[lib1['name'].isin(is_names)].reset_index()
+lib2_is = lib2[lib2['name'].isin(is_names)].reset_index()
+lib3_is = lib3[lib3['name'].isin(is_names)].reset_index()
+lib4_is = lib4[lib4['name'].isin(is_names)].reset_index()
+lib5_is = lib5[lib5['name'].isin(is_names)].reset_index()
+
+lib1_rnpb = lib1.query("gene_x  == 'rnpB' ")
+lib2_rnpb = lib2.query("gene_x  == 'rnpB' ")
+lib3_rnpb = lib3.query("gene_x == 'rnpB' ")
+lib4_rnpb = lib4.query("gene_x == 'rnpB' ")
+lib4_rnpb = lib4.query("gene_x == 'rnpB' ")
+
+lib1_ncrna = lib1[lib1['gene_x'].isin(ncrna_names)].reset_index()
+lib2_ncrna = lib2[lib2['gene_x'].isin(ncrna_names)].reset_index()
+lib3_ncrna = lib3[lib3['gene_x'].isin(ncrna_names)].reset_index()
+lib4_ncrna = lib4[lib4['gene_x'].isin(ncrna_names)].reset_index()
+lib5_ncrna = lib5[lib5['gene_x'].isin(ncrna_names)].reset_index()
+
+lib1_asrna = lib1[lib1['gene_x'].isin(as_rna_names)].reset_index()
+lib2_asrna = lib2[lib2['gene_x'].isin(as_rna_names)].reset_index()
+lib3_asrna = lib3[lib3['gene_x'].isin(as_rna_names)].reset_index()
+lib4_asrna = lib4[lib4['gene_x'].isin(as_rna_names)].reset_index()
+lib5_asrna = lib5[lib5['gene_x'].isin(as_rna_names)].reset_index()
+
+lib1_phage = lib1[lib1['name'].isin(prophage_names)].reset_index()
+lib2_phage = lib2[lib2['name'].isin(prophage_names)].reset_index()
+lib3_phage = lib3[lib3['name'].isin(prophage_names)].reset_index()
+lib4_phage = lib4[lib4['name'].isin(prophage_names)].reset_index()
+lib5_phage = lib5[lib5['name'].isin(prophage_names)].reset_index()
+
+## prepare table for chromosome genes reads distribution graph
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import scipy.stats
+import numpy as np
+import seaborn as sns
+
+
+def plot_that(ax, df, title):
+  sns.barplot(df, x = 'name', y = 'reads_norm', palette = df.color.to_numpy(), ax = ax, width = 4)
+  ax.set_title(title,fontsize=20)
+  ax.set_xlabel("gene",fontsize=20)
+  ax.set_ylabel("short/long RNA ratio",fontsize=20)
+  ax.set(ylim = (0, 100))
+
+def group(dfs):
+  return pd.concat(dfs)[['name','reads_norm']].groupby('name').mean().reset_index()
+
+df = group([lib1, lib2, lib3])
+
+select_names = df[df['reads_norm'] > 50].name
+
+lib1[lib1['name'].isin(select_names)]
+
+
+def barplot_color(df):
+  df['color'] = df['name'].apply(lambda x: 'red' if x in is_names else 'black')
+  return df
+
+def barplot_color2(df):
+  df['color'] = df['name'].apply(lambda x: 'red' if x in as_rna_names2 else 'black')
+  return df
+
+def barplot_color3(x):
+  if x in as_rna_names2:
+    return 'darkviolet'
+  elif x in is_names:
+    return 'darkorange'
+  elif x in prophage_names:
+    return 'cyan'
+  elif  x in trna_names2:
+    return 'limegreen'
+  else:
+    return 'lightslategrey'
+
+def barplot_color2(df):
+  df['color'] = df['name'].apply(barplot_color3)
+  return df
+# draw chromosome gene reads distribution graph
+fig = plt.figure()
+fig, (ax1, ax2) = plt.subplots(2,1)
+
+fig.set_size_inches(14, 14)
+
+df = barplot_color2(group([lib1, lib2, lib3]))
+plot_that(ax1, df, 'pACYC' )
+
+#legend
+pop_a = mpatches.Patch(color='darkviolet', label="asRNA")
+pop_b = mpatches.Patch(color='darkorange', label="IS elements")
+pop_c = mpatches.Patch(color='cyan', label="prophages")
+pop_d= mpatches.Patch(color='limegreen', label="tRNA")
+ax1.legend(handles=[pop_a,pop_b, pop_c, pop_d])
+
+
+df = barplot_color2(group([lib4, lib5]))
+plot_that(ax2, df, 'phage P1' )
+ax2.legend(handles=[pop_a,pop_b, pop_c, pop_d])
+
+
+plt.tight_layout()
+
+#create graph of phage genes reads distribution
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+fig = plt.figure()
+ax1 = fig.add_subplot(321)
+ax2 = fig.add_subplot(322)
+ax3 = fig.add_subplot(323)
+ax4 = fig.add_subplot(324)
+ax5 = fig.add_subplot(325)
+ax6 = fig.add_subplot(326)
+
+
+fig.set_size_inches(15, 10)
+
+sns.barplot(data = lib44, x = 'gene_x', y = 'reads_x_norm', color = 'black', ax = ax1, width = 1)
+sns.barplot(data = lib44, x = 'gene_x', y = 'reads_y_norm', color = 'black', ax = ax3, width = 1)
+sns.barplot(data = lib44, x = 'gene_x', y = 'reads_norm', color = 'black', ax = ax5, width = 1)
+ax1.set_xticklabels(ax1.get_xticklabels(), rotation=45, horizontalalignment='right', fontsize = 6)
+ax3.set_xticklabels(ax1.get_xticklabels(), rotation=45, horizontalalignment='right', fontsize = 6)
+ax5.set_xticklabels(ax1.get_xticklabels(), rotation=45, horizontalalignment='right', fontsize = 6)
+ax1.set(title = 'repetition 1')
+ax1.set(ylabel = 'short reads RPKM')
+ax3.set(ylabel = 'long reads RPKM')
+ax5.set(ylabel = 'short/long redas')
+
+sns.barplot(data = lib55, x = 'gene_x', y = 'reads_x_norm', color = 'black', ax = ax2, width = 1)
+sns.barplot(data = lib55, x = 'gene_x', y = 'reads_y_norm', color = 'black', ax = ax4, width = 1)
+sns.barplot(data = lib55, x = 'gene_x', y = 'reads_norm', color = 'black', ax = ax6, width = 1)
+ax2.set_xticklabels(ax2.get_xticklabels(), rotation=45, horizontalalignment='right', fontsize = 6)
+ax4.set_xticklabels(ax2.get_xticklabels(), rotation=45, horizontalalignment='right', fontsize = 6)
+ax6.set_xticklabels(ax2.get_xticklabels(), rotation=45, horizontalalignment='right', fontsize = 6)
+ax1.set(title = 'repetition 2')
+ax2.set(ylabel = 'short reads RPKM')
+ax4.set(ylabel = 'long reads RPKM')
+ax6.set(ylabel = 'short/long redas')
+
+plt.tight_layout()
+
+# prepare tables for pACYC genes reads distribution graphs
+lib11['strand'] = lib11['name'].apply(lambda x: '-' if '_min' in x else '+')
+lib22['strand'] = lib22['name'].apply(lambda x: '-' if '_min' in x else '+')
+lib33['strand'] = lib33['name'].apply(lambda x: '-' if '_min' in x else '+')
+
+lib11['name'] = ['CmR', 'CmR', 'TcR', 'TcR', 'between1', 'between1', 'between2', 'between2', 'cat_promoter' , 'cat_promoter',
+                 'p15A_ori', 'p15A_ori', 'tet_promoter', 'tet_promoter'   ]
+lib22['name'] = ['CmR', 'CmR', 'TcR', 'TcR', 'between1', 'between1', 'between2', 'between2', 'cat_promoter' , 'cat_promoter',
+                 'p15A_ori', 'p15A_ori', 'tet_promoter', 'tet_promoter'   ]
+lib33['name'] = ['CmR', 'CmR', 'TcR', 'TcR', 'between1', 'between1', 'between2', 'between2', 'cat_promoter' , 'cat_promoter',
+                 'p15A_ori', 'p15A_ori', 'tet_promoter', 'tet_promoter'   ]
+# prepare tables for pBAD-DREN-APAZ-NbaAgo genes reads distribution graphs
+
+lib111['strand'] = lib111['name'].apply(lambda x: '-' if '_min' in x else '+')
+lib222['strand'] = lib222['name'].apply(lambda x: '-' if '_min' in x else '+')
+lib333['strand'] = lib333['name'].apply(lambda x: '-' if '_min' in x else '+')
+
+lib111['name'] = ['AmpR',
+ 'AmpR promoter',
+ 'AmpR promoter',
+ 'AmpR',
+ 'DREN-APAZ',
+ 'DREN-APAZ',
+ 'RBS2',
+ 'RBS2',
+ 'NbaAgo',
+ 'NbaAgo',
+ 'araBAD promoter',
+ 'araBAD promoter',
+ 'araC',
+ 'araC',
+ 'blnuc-full',
+ 'blnuc-full',
+ 'bom',
+ 'bom',
+ 'pBR322 ori',
+ 'pBR322 ori',
+ 'rrnB_T1_terminator',
+ 'rrnB_T1_terminator',
+ 'rrnB_T2_terminator',
+ 'rrnB_T2_terminator']
+
+lib222['name'] =  ['AmpR',
+ 'AmpR promoter',
+ 'AmpR promoter',
+ 'AmpR',
+ 'DREN-APAZ',
+ 'DREN-APAZ',
+ 'RBS2',
+ 'RBS2',
+ 'NbaAgo',
+ 'NbaAgo',
+ 'araBAD promoter',
+ 'araBAD promoter',
+ 'araC',
+ 'araC',
+ 'blnuc-full',
+ 'bom',
+ 'bom',
+ 'pBR322 ori',
+ 'pBR322 ori',
+ 'rrnB_T1_terminator',
+ 'rrnB_T1_terminator',
+ 'rrnB_T2_terminator',
+ 'rrnB_T2_terminator']
+
+lib333['name'] = ['AmpR',
+ 'AmpR promoter',
+ 'AmpR promoter',
+ 'AmpR',
+ 'DREN-APAZ',
+ 'DREN-APAZ',
+ 'RBS1',
+ 'RBS2',
+ 'RBS2',
+ 'NbaAgo',
+ 'Nbago',
+ 'araBAD promoter',
+ 'araBAD promoter',
+ 'araC',
+ 'araC',
+ 'blnuc-full',
+ 'bom',
+ 'bom',
+ 'pBR322 ori',
+ 'pBR322 ori',
+ 'rrnB_T1_terminator',
+ 'rrnB_T1_terminator',
+ 'rrnB_T2_terminator']
+#create graph of pBAD-DREN-APAZ-NbaAgo genes reads distribution graphs
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+lib_pbad = pd.concat([lib111, lib222, lib333], ignore_index=True)
+
+order = ['araBAD promoter', 'DREN-APAZ',  'NbaAgo', 'AmpR promoter', 'AmpR', 'pBR322 ori',  'araC' ]
+
+fig = plt.figure()
+ax1 = fig.add_subplot(131)
+ax2 = fig.add_subplot(132)
+ax3 = fig.add_subplot(133)
+
+fig.set_size_inches(15, 5)
+
+sns.barplot(data = lib_pbad.query("name not in ('rrnB_T1_terminator' , 'rrnB_T2_terminator' ,  'blnuc-full', 'bom', 'RBS1', 'RBS2')"), x = 'name', y = 'reads_x_norm', hue = 'strand', order = order,  ax = ax1, width = 0.8)
+sns.barplot(data = lib_pbad.query("name not in ('rrnB_T1_terminator' , 'rrnB_T2_terminator' ,  'blnuc-full', 'bom', 'RBS1', 'RBS2')"), x = 'name', y = 'reads_y_norm', hue = 'strand', order = order, ax = ax2, width = 0.8)
+sns.barplot(data = lib_pbad.query("name not in ('rrnB_T1_terminator' , 'rrnB_T2_terminator' ,  'blnuc-full', 'bom', 'RBS1', 'RBS2')"), x = 'name', y = 'reads_norm', hue = 'strand', order = order, ax = ax3, width = 0.8)
+ax1.set(ylabel = 'RPKM')
+ax1.set_xticklabels(ax1.get_xticklabels(), rotation=45, horizontalalignment='right')
+ax2.set(ylabel = None)
+ax2.set_xticklabels(ax2.get_xticklabels(), rotation=45, horizontalalignment='right')
+ax3.set(ylabel = None)
+ax3.set_xticklabels(ax3.get_xticklabels(), rotation=45, horizontalalignment='right')
+##create correlation graphs of shot and long reads 
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+fig = plt.figure()
+fig, ((ax1, ax2, ax3),(ax4, ax5, ax6)) = plt.subplots(2,3)
+
+fig.set_size_inches(15, 10)
+
+def plot_that(ax, df, title, color, s):
+  ax.scatter(df.reads_y_norm, df.reads_x_norm, alpha= 1, s = s, color = color)
+  ax.set_yscale('log')
+  ax.set_xscale('log')
+  ax.set(ylim=(0, 100))
+  ax.set(xlim=(0, 100))
+  ax.set(title=title)
+  ax.set(xlabel='RPKM long RNA ', ylabel='RPKM short RNA')
+  
+
+plot_that(ax1, lib1, 'pACYC1', 'silver', 5)
+plot_that(ax1, lib1_asrna, 'pACYC1', 'orange', 6)
+plot_that(ax1, lib1_is, 'pACYC1', 'deeppink', 6)
+plot_that(ax1, lib111_f, 'pACYC1', 'darkorchid', 8) # pBAD
+plot_that(ax1, lib11_f, 'pACYC1', 'mediumblue', 8) # pACYC
+plot_that(ax1, lib1_phage, 'pACYC1', 'cyan', 6)
+
+
+plot_that(ax2, lib2, 'pACYC1', 'silver', 5)
+plot_that(ax2, lib2_asrna, 'pACYC1', 'orange', 6)
+plot_that(ax2, lib2_is, 'pACYC1', 'deeppink', 6)
+plot_that(ax2, lib222_f, 'pACYC1', 'darkorchid', 8) # pBAD
+plot_that(ax2, lib22_f, 'pACYC1', 'mediumblue', 8) # pACYC
+plot_that(ax2, lib2_phage, 'pACYC1', 'cyan', 6)
+
+
+
+
+plot_that(ax3, lib3, 'pACYC1', 'silver', 5)
+plot_that(ax3, lib3_asrna, 'pACYC1', 'orange', 6)
+plot_that(ax3, lib3_is, 'pACYC1', 'deeppink', 6)
+plot_that(ax3, lib333_f, 'pACYC1', 'darkorchid', 8) # pBAD
+plot_that(ax3, lib33_f, 'pACYC1', 'mediumblue', 8) # pACYC
+plot_that(ax3, lib3_phage, 'pACYC1', 'cyan', 6)
+
+ax3.legend(title='',  labels=['E.coli genes', 'asRNA',  'IS-elements', 'pBAD genes', 'pACYC genes', 'prophages'])
+
+plot_that(ax4, lib4, 'phage', 'silver', 5)
+plot_that(ax4, lib4_asrna, 'phage', 'orange', 6)
+plot_that(ax4, lib4_is, 'phage', 'deeppink', 6)
+plot_that(ax4, lib44, 'phage', 'darkorchid', 6)
+plot_that(ax4, lib4_phage, 'phage', 'cyan', 6)
+
+
+plot_that(ax5, lib5, 'phage', 'silver', 5)
+plot_that(ax5, lib5_asrna, 'phage', 'orange', 6)
+plot_that(ax5, lib5_is, 'phage', 'deeppink', 6)
+plot_that(ax5, lib55, 'phage', 'darkorchid', 6)
+plot_that(ax5, lib5_phage, 'phage', 'cyan', 6)
+ax5.legend(title='',  labels=['E.coli genes', 'asRNA',  'IS-elements', 'phage P1 genes', 'prophages'])
+
+
+##create correlation graphs of shot and long reads - means of replicates
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+fig = plt.figure()
+fig, ((ax1),(ax2)) = plt.subplots(1,2)
+
+fig.set_size_inches(13, 5)
+
+def plot_that(ax, df, title, color, s):
+  ax.scatter(df.reads_y_norm, df.reads_x_norm, alpha= 1, s = s, color = color)
+  ax.set_yscale('log')
+  ax.set_xscale('log')
+  ax.set(ylim=(0.00005, 100))
+  ax.set(xlim=(0.00005, 100))
+  ax.set(title=title)
+  ax.set(xlabel='RPKM long RNA ', ylabel='RPKM short RNA')
+
+def group(dfs):
+  return pd.concat(dfs)[['name','reads_y_norm', 'reads_x_norm']].groupby('name').mean()
+
+plot_that(ax1, group([lib1, lib2, lib3]), 'pACYC1', 'silver', 5)
+plot_that(ax1, group([lib1_asrna, lib2_asrna, lib3_asrna]), 'pACYC1', 'orange', 30)
+#plot_that(ax1, group([lib1_trna, lib2_trna, lib3_trna]), 'pACYC1', 'green', 30)
+plot_that(ax1, group([lib1_is, lib2_is, lib3_is]), 'pACYC1', 'deeppink', 30)
+plot_that(ax1, group([lib111_f, lib222_f, lib333_f]), 'pACYC1', 'darkorchid', 30) # pBAD
+plot_that(ax1, group([lib11_f, lib22_f, lib33_f]), 'pACYC1', 'forestgreen', 30) # pACYC
+plot_that(ax1, group([lib1_phage, lib2_phage, lib3_phage]), 'pACYC, Spearman correlation coef. 0.85', 'cyan', 30)
+
+ax1.legend(title='',  labels=['E.coli genes', 'asRNA',  'IS-elements', 'pBAD genes', 'pACYC genes', 'prophages'])
+
+
+plot_that(ax2, group([lib4, lib5]), 'phage', 'silver', 5)
+plot_that(ax2, group([lib4_asrna, lib5_asrna]), 'phage', 'orange', 30)
+#plot_that(ax2, group([lib4_trna, lib5_trna]), 'phage', 'green', 30)
+plot_that(ax2, group([lib4_is, lib5_is]), 'phage', 'deeppink', 30)
+plot_that(ax2, group([lib44, lib55]), 'phage', 'darkorchid', 30)
+plot_that(ax2, group([lib4_phage, lib5_phage]), 'phage P1, Spearman correlation coef. 0.84', 'cyan', 30)
+
+ax2.legend(title='',  labels=['E.coli genes', 'asRNA',  'IS-elements', 'phage P1 genes', 'prophages'])
+
+
+sns.move_legend(ax1, "upper left", bbox_to_anchor=(1, 1))
+sns.move_legend(ax2, "upper left", bbox_to_anchor=(1, 1))
+plt.tight_layout()
+
+# calculate Spearman correlation coefficient for pACYC replicates
+group([lib1, lib2, lib3]).corr(method='spearman')
+
+# calculate Spearman correlation coefficient for phage replicates
+group([lib4, lib5]).corr(method='spearman')
+
+## create graph of short and long reads ration descending 
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+fig = plt.figure()
+fig, (ax) = plt.subplots(1,1)
+all_reads_norm = pd.concat([lib1, lib2, lib3], ignore_index=True).query('reads_norm > 0')
+name_to_gene = all_reads_norm[['name', 'gene_x']].drop_duplicates().reset_index()
+all_reads_norm = all_reads_norm.groupby('name').mean().reads_norm.reset_index()
+all_reads_norm['reads_norm2']= np.log2(all_reads_norm['reads_norm'])
+all_reads_norm = all_reads_norm.sort_values(by = 'reads_norm2', ascending=False).reset_index(drop=True)
+all_reads_norm = all_reads_norm.merge(name_to_gene, on = 'name')
+sns.barplot(all_reads_norm, x ='name', y= 'reads_norm2', color = 'forestgreen', width = 2, ax=ax)
+fig.savefig('enrichment_distribution_total.png')
+
+# create table for circular diagramm of top and bottom enriched genes
+import numpy as np
+
+def rna_class(row):
+  if row.name in is_names:
+    return 'mobile element'
+  elif row.name in prophage_names:
+    return 'prophage'
+  elif row.gene_x in as_rna_names:
+    return 'asRNA'
+  elif row.gene_x in trna_names:
+    return 'noncoding'
+  elif row.gene_x in ncrna_names:
+    return 'noncoding'
+  else:
+    return 'coding'
+lib_sort = all_reads_norm
+lib_sort['rna_class'] = lib_sort.apply(rna_class, 1)
+
+# create circular diagram of top enriched genes
+import matplotlib.pyplot as plt
+import seaborn as sns
+fig = plt.figure()
+top100 = lib_sort.head(100)
+top100[['name', 'gene_x', 'rna_class']]
+print(top100['rna_class'].value_counts())
+
+colors = ["#20607B", "#23DFBC",  "#FA9336", "#878786"]
+
+data_pie1 = top100['rna_class'].value_counts()
+plt.pie(data_pie1, labels = data_pie1.keys(),  autopct='%.0f%%', colors = colors, textprops={'fontsize': 18})
+
+# create circular diagram of bottom enriched genes
+fig = plt.figure()
+
+colors = ["#20607B", "#23DFBC",  "#FA9336", "#878786"]
+
+bottom100 = lib_sort.tail(100)
+bottom100[['name', 'gene_x', 'rna_class']]
+data_pie2 = bottom100['rna_class'].value_counts()
+plt.pie(data_pie2, labels = data_pie2.keys(),  autopct='%.0f%%', colors = colors, textprops={'fontsize': 18})
+
+plt.tight_layout()
+
+
+
+
+
+
+
+
+
+
+
+ax1.set(title = 'pBAD distribution: short reads')
+ax2.set(title = 'pBAD distribution: long reads')
+ax3.set(title = 'pBAD distribution: norm reads')
+
+plt.tight_layout()
+
+#create graph of pACYX genes reads distribution graphs
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+lib_pacyc = pd.concat([lib11, lib22, lib33], ignore_index=True)
+
+fig = plt.figure()
+ax1 = fig.add_subplot(131)
+ax2 = fig.add_subplot(132)
+ax3 = fig.add_subplot(133)
+
+fig.set_size_inches(15, 5)
+
+sns.barplot(data = lib_pacyc, x = 'name', y = 'reads_x_norm', hue = 'strand',  ax = ax1, width = 0.8)
+sns.barplot(data = lib_pacyc, x = 'name', y = 'reads_y_norm', hue = 'strand',  ax = ax2, width = 0.8)
+sns.barplot(data = lib_pacyc, x = 'name', y = 'reads_norm', hue = 'strand', ax = ax3, width = 0.8)
+ax1.set(ylabel = 'RPKM')
+ax1.set_xticklabels(ax1.get_xticklabels(), rotation=45, horizontalalignment='right')
+ax2.set(ylabel = None)
+ax2.set_xticklabels(ax2.get_xticklabels(), rotation=45, horizontalalignment='right')
+ax3.set(ylabel = None)
+ax3.set_xticklabels(ax3.get_xticklabels(), rotation=45, horizontalalignment='right')
+
+ax1.set(title = 'pACYC distribution: short reads')
+ax2.set(title = 'pACYC distribution: long reads')
+ax3.set(title = 'pACYC distribution: norm reads')
+
+plt.tight_layout()
+fig.savefig('gene_distribution_pacyc_260523_mean.png', dpi = 300)
+
