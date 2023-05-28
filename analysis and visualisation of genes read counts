@@ -1,4 +1,4 @@
-#download  reads counts mapped to MG1655 genome DNA
+#download gene counts data of reads mapped to MG1655 genome DNA
 
 
 import pandas as pd
@@ -63,7 +63,7 @@ lib10.columns = ['name', 'gene', 'reads' ]
 lib10['rep'] = 'rep10'
 lib10_sum = sum(lib10['reads'])
 
-#### reads counts mapped to the phage genome
+#### download gene counts data of reads mapped to the phage genome
 
 lib44 = pd.read_csv('Esyun_4_all.bam.sortedall_phage.txt', sep ='\t', header = None)
 lib44.columns = ['name', 'gene', 'reads' ]
@@ -85,7 +85,7 @@ lib1010.columns = ['name', 'gene', 'reads' ]
 lib1010['rep'] = 'rep10'
 lib1010_sum = lib1010['reads']
 
-####download  reads counts mapped to pBAD-DREN-APAZ-NbaAgo plasmid
+##download gene counts data of reads mapped to pBAD-DREN-APAZ-NbaAgo plasmid
 
 pbad_genes_len = pd.read_csv('pbad_gen_len', sep=' ', header = None)
 
@@ -128,7 +128,7 @@ lib888.columns = ['name',  'reads' ]
 lib888['rep'] = 'rep8'
 lib888_sum = sum(lib888['reads'])
 
-#### download reads counts mapped to pacyc plasmid
+## download gene counts data of reads mapped to pacyc plasmid
 pacyc_genes_len = pd.read_csv('pacyc_gen_len', sep=' ', header = None)
 
 pacyc_genes_len['gene_len']= abs(pacyc_genes_len[0]-pacyc_genes_len[1])
@@ -171,7 +171,7 @@ lib88.columns = ['name',  'reads' ]
 lib88['rep'] = 'rep1'
 lib88_sum= sum(lib88['reads'])
 
-# download information about total mapped reads in each library
+##download information about total mapped reads in each library
 read_sum1 = [['rep1',1567791 ], ['rep2',1782608], ['rep3', 2396602], ['rep4',1588553], ['rep5', 2025996]]
 
 
@@ -184,7 +184,7 @@ lib_sum2 =  pd.DataFrame(read_sum2, columns=['rep_y', 'sum_y'])
 
 lib_sum = lib_sum1.merge(lib_sum2,left_index=True, right_index=True )
 
-## create tables with infromation about mapped short reads, mapped long reads, gene lengths, total number of reads and calculation of RPKM for MG1655 chromosome
+## create tables with infromation about counts of mapped short reads, mapped long reads, gene lengths, total number of reads and calculation of RPKM for MG1655 chromosome
 genes_len = pd.read_csv('mg_genes_len', sep=' ', header = None)
 genes_len['gene_len']= abs(genes_len[0]-genes_len[1])
 genes_len.columns = ['start', 'stop', 'name', 'gene_len']
@@ -212,7 +212,7 @@ lib3 = prepare(lib3.merge(lib8, on = 'name', how = 'left'))
 lib4 = prepare(lib4.merge(lib9, on = 'name', how = 'left'))
 lib5 = prepare(lib5.merge(lib10, on = 'name', how = 'left'))
 
-## create tables with infromation about mapped short reads, mapped long reads, gene lengths, total number of reads and calculation of RPKM for phage genome
+## create tables with infromation about counts of mapped short reads, mapped long reads, gene lengths, total number of reads and calculation of RPKM fo phage genome
 phage_genes_len = pd.read_csv('phage_gene_len', sep=' ', header = None)
 
 phage_genes_len['gene_len']= abs(phage_genes_len[0]-phage_genes_len[1])
@@ -247,7 +247,7 @@ lib44 = phage_genes_len.merge(lib44, on = ['name', 'gene_len'], how = 'left').fi
 lib55 = phage_genes_len.merge(lib55, on = ['name', 'gene_len'], how = 'left').fillna({"gene_x": 'unknown' , "reads_x": 0, "reads_y": 0  })
 
 
-## create tables with infromation about mapped short reads, mapped long reads, gene lengths, total number of reads and calculation of RPKM for pBAD-DREN-APAZ-NbaAgo
+##  create tables with infromation about counts of mapped short reads, mapped long reads, gene lengths, total number of reads and calculation of RPKM fo for pBAD-DREN-APAZ-NbaAgo
 def prepare(df):
   df1 = df.query("name not in ('__no_feature', '__ambiguous', '__too_low_aQual', '__not_aligned', '__alignment_not_unique')")\
           .query("reads_y > 0")\
@@ -269,7 +269,7 @@ lib111_f = lib111[ lib111['name'].isin(['DUF4365_N_domain', 'SbAgo', 'Amp', 'ori
 lib222_f = lib222[ lib222['name'].isin(['DUF4365_N_domain', 'SbAgo', 'Amp', 'ori', 'araC_min'])] # filtered table for correlation graph
 lib333_f = lib333[ lib111['name'].isin(['DUF4365_N_domain', 'SbAgo', 'Amp', 'ori', 'araC_min'])] # filtered table for correlation graph
 
-## create tables with infromation about mapped short reads, mapped long reads, gene lengths, total number of reads and calculation of RPKM for pACYC
+##  create tables with infromation about counts of mapped short reads, mapped long reads, gene lengths, total number of reads and calculation of RPKM fofor pACYC
 def prepare(df):
   df1 = df.query("name not in ('__no_feature', '__ambiguous', '__too_low_aQual', '__not_aligned', '__alignment_not_unique')")\
           .query("reads_y > 0")\
@@ -408,7 +408,7 @@ prophage_names.columns = ['name']
 prophage_names['name'] = prophage_names.name.str.replace(';', '')
 prophage_names = prophage_names['name'].to_numpy()
 
-## create table with names of genes of different classes for correlation graphs
+## create tables with names of genes of different classes for correlation graphs
 lib1_ribo = lib1[lib1['gene_x'].isin(ribo_names)].reset_index()
 lib2_ribo = lib2[lib2['gene_x'].isin(ribo_names)].reset_index()
 lib3_ribo = lib3[lib3['gene_x'].isin(ribo_names)].reset_index()
@@ -451,7 +451,7 @@ lib3_phage = lib3[lib3['name'].isin(prophage_names)].reset_index()
 lib4_phage = lib4[lib4['name'].isin(prophage_names)].reset_index()
 lib5_phage = lib5[lib5['name'].isin(prophage_names)].reset_index()
 
-## prepare table for chromosome genes reads distribution graph
+## prepare table for chromosome genes reads counts distribution graph
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import scipy.stats
@@ -523,7 +523,7 @@ ax2.legend(handles=[pop_a,pop_b, pop_c, pop_d])
 
 plt.tight_layout()
 
-#create graph of phage genes reads distribution
+#create graph of phage genes reads counts distribution
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -562,7 +562,7 @@ ax6.set(ylabel = 'short/long redas')
 
 plt.tight_layout()
 
-# prepare tables for pACYC genes reads distribution graphs
+# prepare tables for pACYC genes reads counts distribution graphs
 lib11['strand'] = lib11['name'].apply(lambda x: '-' if '_min' in x else '+')
 lib22['strand'] = lib22['name'].apply(lambda x: '-' if '_min' in x else '+')
 lib33['strand'] = lib33['name'].apply(lambda x: '-' if '_min' in x else '+')
@@ -651,7 +651,8 @@ lib333['name'] = ['AmpR',
  'rrnB_T1_terminator',
  'rrnB_T1_terminator',
  'rrnB_T2_terminator']
-#create graph of pBAD-DREN-APAZ-NbaAgo genes reads distribution graphs
+ 
+#create graph of pBAD-DREN-APAZ-NbaAgo genes reads counts distribution graphs
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -711,7 +712,6 @@ plot_that(ax2, lib2_phage, 'pACYC1', 'cyan', 6)
 
 
 
-
 plot_that(ax3, lib3, 'pACYC1', 'silver', 5)
 plot_that(ax3, lib3_asrna, 'pACYC1', 'orange', 6)
 plot_that(ax3, lib3_is, 'pACYC1', 'deeppink', 6)
@@ -736,7 +736,7 @@ plot_that(ax5, lib5_phage, 'phage', 'cyan', 6)
 ax5.legend(title='',  labels=['E.coli genes', 'asRNA',  'IS-elements', 'phage P1 genes', 'prophages'])
 
 
-##create correlation graphs of shot and long reads - means of replicates
+##create correlation graphs of shot and long reads counts - means of replicates
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -788,7 +788,7 @@ group([lib1, lib2, lib3]).corr(method='spearman')
 # calculate Spearman correlation coefficient for phage replicates
 group([lib4, lib5]).corr(method='spearman')
 
-## create graph of short and long reads ration descending 
+## create graph of short and long reads counts ratio in descending order
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -845,51 +845,5 @@ bottom100[['name', 'gene_x', 'rna_class']]
 data_pie2 = bottom100['rna_class'].value_counts()
 plt.pie(data_pie2, labels = data_pie2.keys(),  autopct='%.0f%%', colors = colors, textprops={'fontsize': 18})
 
-plt.tight_layout()
 
-
-
-
-
-
-
-
-
-
-
-ax1.set(title = 'pBAD distribution: short reads')
-ax2.set(title = 'pBAD distribution: long reads')
-ax3.set(title = 'pBAD distribution: norm reads')
-
-plt.tight_layout()
-
-#create graph of pACYX genes reads distribution graphs
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-lib_pacyc = pd.concat([lib11, lib22, lib33], ignore_index=True)
-
-fig = plt.figure()
-ax1 = fig.add_subplot(131)
-ax2 = fig.add_subplot(132)
-ax3 = fig.add_subplot(133)
-
-fig.set_size_inches(15, 5)
-
-sns.barplot(data = lib_pacyc, x = 'name', y = 'reads_x_norm', hue = 'strand',  ax = ax1, width = 0.8)
-sns.barplot(data = lib_pacyc, x = 'name', y = 'reads_y_norm', hue = 'strand',  ax = ax2, width = 0.8)
-sns.barplot(data = lib_pacyc, x = 'name', y = 'reads_norm', hue = 'strand', ax = ax3, width = 0.8)
-ax1.set(ylabel = 'RPKM')
-ax1.set_xticklabels(ax1.get_xticklabels(), rotation=45, horizontalalignment='right')
-ax2.set(ylabel = None)
-ax2.set_xticklabels(ax2.get_xticklabels(), rotation=45, horizontalalignment='right')
-ax3.set(ylabel = None)
-ax3.set_xticklabels(ax3.get_xticklabels(), rotation=45, horizontalalignment='right')
-
-ax1.set(title = 'pACYC distribution: short reads')
-ax2.set(title = 'pACYC distribution: long reads')
-ax3.set(title = 'pACYC distribution: norm reads')
-
-plt.tight_layout()
-fig.savefig('gene_distribution_pacyc_260523_mean.png', dpi = 300)
 
